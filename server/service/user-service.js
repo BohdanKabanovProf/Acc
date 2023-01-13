@@ -2,17 +2,17 @@ import User from '../model/user-model.js'
 import UserModel from '../model/user-model.js'
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid'
-import mailService from './main-service.js'
+import mailService from './mail-service.js'
 import tokenService from './token-service.js'
 import { UserDto } from '../dtos/user-dto.js'
 
 class UserService {
-  async registration (email, first_name, last_name, patronymic, role, password) {
+  async registration(email, first_name, last_name, patronymic, role, password) {
     try {
       const candidate = await User.findOne({ where: { email } })
       if (candidate) {
         throw new Error(
-          `Пользователь с почтовым адрессом ${email} уже существует`
+          `Пользователь с почтовым адрессом ${email} уже существует`,
         )
       }
 
@@ -26,10 +26,13 @@ class UserService {
         patronymic,
         role,
         password: hashPassword,
-        activationLink
+        activationLink,
       })
 
-      await mailService.sendActivationMail(email, activationLink)
+      await mailService.sendActivationMail(
+        email,
+        `${process.env.API_URL}/api/activate/${activationLink}`,
+      )
 
       const userDto = new UserDto(user)
       const tokens = tokenService.generateTokens({ ...userDto })
@@ -38,25 +41,40 @@ class UserService {
 
       return {
         ...tokens,
-        user: userDto
+        user: userDto,
       }
     } catch (err) {
       console.log(err)
     }
   }
-  async login (email, password) {
+  async login(email, password) {
     try {
       // todo
     } catch (err) {
       console.log(err)
     }
   }
-  async logout (email, password) {
+  async logout(email, password) {
     try {
       // todo
     } catch (err) {
       console.log(err)
     }
+  }
+
+  async activate(activationLink) {
+    const user = await User.findOne({
+      where: {
+        activationLink,
+      },
+    })
+
+    if (!user) {
+      throw new Error('Неккоректная ссылка активации')
+    }
+
+    user.isActivated = true
+    await user.save()
   }
 }
 

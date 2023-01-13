@@ -10,22 +10,22 @@ const Role = sequelize.define(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-      foreignKey: true
+      foreignKey: true,
     },
     name: {
-      type: DataTypes.STRING
-    }
+      type: DataTypes.STRING,
+    },
   },
   {
     // Other model options go here
-  }
+  },
 )
 
 await Role.sync()
 // await Role.create({
-//   name: 'Ученик'
+//   name: 'Ученик',
 // })
 
-// await Role.drop
+// await Role.drop()
 
 export default Role
