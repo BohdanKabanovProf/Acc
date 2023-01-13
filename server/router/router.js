@@ -1,5 +1,6 @@
 import express from 'express'
 import UserController from '../controller/user-controller.js'
+import { body } from 'express-validator'
 
 const router = express.Router()
 
@@ -15,7 +16,12 @@ const router = express.Router()
  * }
  */
 
-router.post('/registration', UserController.registration)
+router.post(
+  '/registration',
+  body('email').isEmail(),
+  body('password').isLength({ min: 3, max: 32 }),
+  UserController.registration,
+)
 
 /**
  * TODO: функция авторизации пользователя

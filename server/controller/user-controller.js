@@ -1,8 +1,14 @@
 import userService from '../service/user-service.js'
+import { validationResult } from 'express-validator'
+import ApiError from '../exceptions/api-error.js'
 
 class UserController {
-  async registration(req, res) {
+  async registration(req, res, next) {
     try {
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        return next(ApiError.BedRequest('Ошибка валидации', errors.array()))
+      }
       const {
         email,
         first_name,
@@ -42,6 +48,7 @@ class UserController {
   }
   async login() {
     try {
+      // body
     } catch (err) {
       next(err)
     }
