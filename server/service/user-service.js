@@ -5,13 +5,14 @@ import { v4 as uuidv4 } from 'uuid'
 import mailService from './mail-service.js'
 import tokenService from './token-service.js'
 import { UserDto } from '../dtos/user-dto.js'
+import ApiError from '../exceptions/api-error.js'
 
 class UserService {
   async registration(email, first_name, last_name, patronymic, role, password) {
     try {
       const candidate = await User.findOne({ where: { email } })
       if (candidate) {
-        throw new Error(
+        throw new ApiError.BedRequest(
           `Пользователь с почтовым адрессом ${email} уже существует`,
         )
       }
@@ -70,7 +71,7 @@ class UserService {
     })
 
     if (!user) {
-      throw new Error('Неккоректная ссылка активации')
+      throw new ApiError.BedRequest('Неккоректная ссылка активации')
     }
 
     user.isActivated = true

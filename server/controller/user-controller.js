@@ -27,7 +27,7 @@ class UserController {
 
       return res.json(userData)
     } catch (err) {
-      console.error(err)
+      next(err)
     }
   }
 
@@ -37,11 +37,14 @@ class UserController {
       await userService.activate(activationLink)
       return res.redirect(process.env.CLIENT_URL)
     } catch (err) {
-      console.error(err)
+      next(err)
     }
   }
   async login() {
-    // body
+    try {
+    } catch (err) {
+      next(err)
+    }
   }
 }
 
