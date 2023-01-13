@@ -1,9 +1,21 @@
-import { Router } from "express";
+import express from "express"
+import UserController from "../controller/user-controller.js";
 
-const router = new Router();
+const router = express.Router();
 
-router.get('/test', (reqm, res) => {
-    console.log('test')
-})
+/**
+ * TODO: функция регистрациии пользователя
+ * @param {
+ * email,
+ * phone,
+ * password,
+ * last_name,
+ * first_name,
+ * patronymic,
+ * age,
+ * }
+ */
+
+router.post('/registration', UserController.registration)
 
 export default router;
