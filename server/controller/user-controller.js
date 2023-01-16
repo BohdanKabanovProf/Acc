@@ -77,8 +77,7 @@ class UserController {
 
   async refresh(req, res, next) {
     try {
-      const refreshToken = req.cookies
-
+      const { refreshToken } = req.cookies
       const userData = await userService.refresh(refreshToken)
 
       res.cookie('refreshToken', userData.refreshToken, {
@@ -88,7 +87,7 @@ class UserController {
 
       return res.json(userData)
     } catch (err) {
-      next(e)
+      next(err)
     }
   }
 

@@ -22,9 +22,9 @@ class TokenService {
     }
   }
   validateRefreshToken(token) {
-    const userData = jwt.verify(token, process.env.JWT_REFRESH_TOKEN)
-    return userData
     try {
+      const userData = jwt.verify(token, process.env.JWT_REFRESH_TOKEN)
+      return userData
     } catch (err) {
       return null
     }

@@ -2,6 +2,7 @@ import express from 'express'
 import UserController from '../controller/user-controller.js'
 import { body } from 'express-validator'
 import userController from '../controller/user-controller.js'
+import authMiddleware from '../middleware/auth-middleware.js'
 
 const router = express.Router()
 
@@ -56,6 +57,6 @@ router.get('/refresh', userController.refresh)
  * TODO: получение всех пользователей
  */
 
-router.get('/users', userController.getUsers)
+router.get('/users', authMiddleware, userController.getUsers)
 
 export default router
