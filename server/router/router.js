@@ -52,4 +52,10 @@ router.post('/logout', UserController.logout)
 
 router.get('/refresh', userController.refresh)
 
+/**
+ * TODO: получение всех пользователей
+ */
+
+router.get('/users', userController.getUsers)
+
 export default router
