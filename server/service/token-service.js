@@ -2,18 +2,18 @@ import jwt from 'jsonwebtoken'
 import { where } from 'sequelize'
 import tokenModel from '../model/token-model.js'
 class TokenService {
-  generateTokens (payload) {
+  generateTokens(payload) {
     const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_TOKEN, {
-      expiresIn: '30m'
+      expiresIn: '30m',
     })
     const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_TOKEN, {
-      expiresIn: '7d'
+      expiresIn: '7d',
     })
 
     return { accessToken, refreshToken }
   }
 
-  async saveToken (userId, refreshToken) {
+  async saveToken(userId, refreshToken) {
     const tokenData = await tokenModel.findOne({ where: { user: userId } })
     if (tokenData) {
       tokenData.refreshToken = refreshToken
@@ -22,10 +22,15 @@ class TokenService {
 
     const token = await tokenModel.create({
       user: userId,
-      refreshToken
+      refreshToken,
     })
 
     return token
+  }
+
+  async removeToken(refreshToken) {
+    const tokenData = await tokenModel.destroy({ where: { refreshToken } })
+    return tokenData
   }
 }
 

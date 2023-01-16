@@ -39,4 +39,14 @@ router.get('/activate/:link', UserController.activate)
 
 router.post('/login', UserController.login)
 
+/**
+ * TODO: выход из аккаунта
+ */
+
+router.post('/logout', UserController.logout)
+
+/**
+ * TODO: обновление токинов
+ */
+
 export default router
