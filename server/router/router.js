@@ -1,6 +1,7 @@
 import express from 'express'
 import UserController from '../controller/user-controller.js'
 import { body } from 'express-validator'
+import userController from '../controller/user-controller.js'
 
 const router = express.Router()
 
@@ -48,5 +49,7 @@ router.post('/logout', UserController.logout)
 /**
  * TODO: обновление токинов
  */
+
+router.get('/refresh', userController.refresh)
 
 export default router

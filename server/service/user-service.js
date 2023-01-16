@@ -50,7 +50,7 @@ class UserService {
   }
   async login(email, password) {
     try {
-      const user = await UserModel.findOne({ where: { email } })
+      const user = await UserModel.findOne({ where: { email: email } })
       if (!user) {
         throw ApiError.BedRequest('Пользователь с таким email не найден')
       }
@@ -92,6 +92,28 @@ class UserService {
 
     user.isActivated = true
     await user.save()
+  }
+
+  async refresh(refreshToken) {
+    if (!refreshToken) {
+      throw ApiError.UnauthorizedError()
+    }
+
+    const userData = tokenService.validateRefreshToken(refreshToken)
+    const tokenFromDb = await tokenService.findToken(refreshToken)
+    if (!userData && !tokenFromDb) {
+      throw ApiError.UnauthorizedError()
+    }
+
+    const user = await UserModel.findOne({ where: { id: userData.id } })
+    const userDto = new UserDto(user)
+    const tokens = tokenService.generateTokens({ ...userDto })
+
+    await tokenService.saveToken(userDto.id, tokens.refreshToken)
+    return {
+      ...tokens,
+      user: userDto,
+    }
   }
 }
 
