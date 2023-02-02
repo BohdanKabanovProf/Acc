@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite'
 import { useContext, useEffect } from 'react'
 import { Context } from '.'
-import LoginForm from './components/LoginForm'
+import LoginForm from './pages/Authorization/LoginForm'
+import HomePage from './pages/HomePage/HomePage'
 
 function App() {
   const { store } = useContext(Context)
@@ -11,14 +12,17 @@ function App() {
     }
   }, [])
 
+  if (store.isLoading) {
+    return <h1>Загрузка</h1>
+  }
+
+  if (!store.isAuth) {
+    return <LoginForm />
+  }
+
   return (
     <div className="App">
-      <h1>
-        {store.isAuth
-          ? `Пользваотель авторизован ${store.user.email}`
-          : 'Авторизуйтесь'}
-      </h1>
-      <LoginForm />
+      <h1>{store.isAuth ? <HomePage /> : 'Авторизуйтесь'}</h1>
     </div>
   )
 }

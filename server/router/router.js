@@ -26,11 +26,7 @@ router.post(
 )
 
 /**
- * TODO: функция авторизации пользователя
- * @param {
- * email,
- * password
- * }
+ * TODO: функция подтверждения пользователя
  */
 
 router.get('/activate/:link', UserController.activate)

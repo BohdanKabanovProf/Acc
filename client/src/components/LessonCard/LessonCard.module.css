@@ -1,0 +1,27 @@
+.card {
+  width: 100%;
+  min-height: 250px;
+  border-radius: 20px;
+  color: #17181a;
+  margin-top: 24px;
+  padding: 20px;
+}
+
+.card__theme_yellow {
+  background-color: #f4e388;
+}
+
+.card__theme_red {
+  background-color: #fbacac;
+}
+
+.card__theme_blue {
+  background-color: #84acb9;
+}
+
+.card__title {
+  display: flex;
+  margin: 10px 0px;
+  line-height: 20px;
+  font-size: 20px;
+}

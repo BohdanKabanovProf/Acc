@@ -6,10 +6,10 @@ export default class AuthService {
   }
 
   static async registration(email, password) {
-    return api.post('/login', { email, password })
+    return api.post('/registration', { email, password })
   }
 
   static async logout() {
-    return api.post('/login')
+    return api.post('/logout')
   }
 }

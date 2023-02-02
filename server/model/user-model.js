@@ -23,14 +23,6 @@ const User = sequelize.define(
     patronymic: {
       type: DataTypes.STRING,
     },
-    role: {
-      type: DataTypes.INTEGER,
-      required: true,
-      references: {
-        model: Role,
-        key: 'id',
-      },
-    },
     email: {
       type: DataTypes.STRING,
       required: true,
@@ -52,7 +44,5 @@ const User = sequelize.define(
     // Other model options go here
   },
 )
-
-await User.sync()
 
 export default User

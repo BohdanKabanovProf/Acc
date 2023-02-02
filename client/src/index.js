@@ -2,6 +2,8 @@ import React, { createContext } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import Store from './store/store'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { BrowserRouter } from 'react-router-dom'
 
 const store = new Store()
 
@@ -16,6 +18,8 @@ root.render(
       store,
     }}
   >
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Context.Provider>,
 )

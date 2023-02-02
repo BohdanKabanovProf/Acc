@@ -1,0 +1,16 @@
+.nav_reset li {
+    list-style-type: none;
+}
+
+.nav_reset ul {
+    padding: 0;
+}
+
+.nav li {
+    font-size: 18px;
+}
+
+.nav li a {
+    text-decoration: none;
+    color: black;
+}

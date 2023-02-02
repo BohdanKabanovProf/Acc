@@ -6,6 +6,8 @@ import { API_URL } from '../http'
 export default class Store {
   user = {}
   isAuth = false
+  isLoading = false
+  errors = []
 
   constructor() {
     makeAutoObservable(this)
@@ -19,6 +21,14 @@ export default class Store {
     this.user = user
   }
 
+  setLoading(bool) {
+    this.isLoading = bool
+  }
+
+  setErrors(array) {
+    this.errors = array
+  }
+
   async login(email, password) {
     try {
       const response = await AuthService.login(email, password)
@@ -27,7 +37,8 @@ export default class Store {
       this.setAuth(true)
       this.setUser(response.data.user)
     } catch (err) {
-      console.error(err.response?.data?.messege)
+      this.setErrors(err)
+      console.error(err.response?.data?.message)
     }
   }
 
@@ -39,7 +50,7 @@ export default class Store {
       this.setAuth(true)
       this.setUser(response.data.user)
     } catch (err) {
-      console.error(err.response?.data?.messege)
+      console.error(err.response?.data?.message)
     }
   }
 
@@ -50,11 +61,12 @@ export default class Store {
       this.setAuth(false)
       this.setUser({})
     } catch (err) {
-      console.error(err.response?.data?.messege)
+      console.error(err.response?.data?.message)
     }
   }
 
   async checkAuth() {
+    this.setLoading(true)
     try {
       const response = await axios.get(`${API_URL}/refresh`, {
         withCredentials: true,
@@ -64,7 +76,9 @@ export default class Store {
       this.setAuth(true)
       this.setUser(response.data.user)
     } catch (err) {
-      console.log(err.response?.data?.messege)
+      console.log(err.response?.data?.message)
+    } finally {
+      this.setLoading(false)
     }
   }
 }

@@ -2,8 +2,8 @@ import { DataTypes } from 'sequelize'
 import sequelize from '../database/connect.js'
 import User from './user-model.js'
 
-const Role = sequelize.define(
-  'Role',
+const Lesson = sequelize.define(
+  'Lesson',
   {
     // Model attributes are defined here
     id: {
@@ -12,7 +12,7 @@ const Role = sequelize.define(
       primaryKey: true,
       foreignKey: true,
     },
-    role: {
+    name: {
       type: DataTypes.STRING,
       unique: true,
       required: true,
@@ -25,4 +25,4 @@ const Role = sequelize.define(
 )
 
 
-export default Role
+export default Lesson

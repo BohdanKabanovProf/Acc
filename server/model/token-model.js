@@ -9,19 +9,17 @@ const Token = sequelize.define(
       type: DataTypes.INTEGER,
       references: {
         model: User,
-        key: 'id'
-      }
+        key: 'id',
+      },
     },
     refreshToken: {
       type: DataTypes.STRING,
-      required: true
-    }
+      required: true,
+    },
   },
   {
     // Other model options go here
-  }
+  },
 )
-
-await Token.sync()
 
 export default Token

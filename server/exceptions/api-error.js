@@ -2,8 +2,8 @@ class ApiError extends Error {
   status
   errors
 
-  constructor(status, messege, errors = []) {
-    super(messege)
+  constructor(status, message, errors = []) {
+    super(message)
     this.status = status
     this.errors = errors
   }
@@ -12,8 +12,8 @@ class ApiError extends Error {
     return new ApiError(401, 'Пользователь не авторизован')
   }
 
-  static BedRequest(messege, errors = []) {
-    return new ApiError(400, messege, errors)
+  static BedRequest(message, errors = []) {
+    return new ApiError(400, message, errors)
   }
 }
 

@@ -1,0 +1,14 @@
+.loader__wrapper {
+    width: 100%;
+    background-color: #FFFFFF;
+    min-height: 15px;
+    margin-bottom: 20px;
+}
+
+.loader {
+    position: relative;
+    width: 0%;
+    min-height: 15px;
+    background-color: #88E397;
+    transition: .6s;
+}
